@@ -11,6 +11,7 @@ def get_path(folder_name: str, file_name: str):
     cwd = os.getcwd()
     return f"{cwd}/{folder_name}/{file_name}"
 
+DEFAULT_URL = "http://192.168.0.168:8080/predict"
 
 #%%
 model_path = get_path(folder_name='booking_gauger/api', 
@@ -37,7 +38,7 @@ def predict_booking(num_sessions, city_encoded, country_encoded,
     return prediction.tolist()
 
 
-def request_prediction(URL: str, data: dict) -> int:
+def request_prediction(data: dict, URL: str = DEFAULT_URL,) -> int:
     """
     This function makes an API request to the booking gauger API and return
     a prediction of number of days room will be booked for accommodation.
