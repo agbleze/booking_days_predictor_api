@@ -7,10 +7,8 @@ from helpers import predict_booking, get_path
 
 warnings.filterwarnings('ignore')
 
-model_path = get_path(folder_name='booking_gauger/api', file_name='new_model.model')
-#model = joblib.load(filename=model_path)
-
-model = joblib.load(filename='new_model.model')
+model_path = get_path(folder_name='booking_gauger/api', file_name='model.model')
+model = joblib.load(filename=model_path)
 
 #%%
 app = Flask(__name__)
@@ -26,15 +24,20 @@ class predictBookingDays(Resource):
         instant_booking = user_input['instant_booking_encoded']
         user_verified = user_input['user_verified_encoded']
         
-        data = X=[num_sessions, 
-                  city, 
-                  country,
-                  device, 
-                  instant_booking,
-                  user_verified
-                ]
+        # data = X=[num_sessions, 
+        #           city, 
+        #           country,
+        #           device, 
+        #           instant_booking,
+        #           user_verified
+        #         ]
         prediction = predict_booking(model=model, 
-                                     X=data
+                                     num_sessions=num_sessions, 
+                                     city_encoded=city, 
+                                     country_encoded=country,
+                                     device_class_encoded=device, 
+                                     instant_booking_encoded=instant_booking,
+                                     user_verified_encoded=user_verified
                                      )
         prediction_json = {'predicted_value': prediction}
         return jsonify(prediction_json)
