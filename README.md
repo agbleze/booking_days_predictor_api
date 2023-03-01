@@ -1,2 +1,2 @@
 # booking_days_predictor_api
-Create an API for predicting number of booking days
+Create a machine learning API for predicting number of days a client will book a room online for accommodation 
