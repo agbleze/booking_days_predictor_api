@@ -20,7 +20,7 @@ available [here](https://github.com/agbleze/machine_learning_api).
 
 - II. Activate the virtual environment
 
-``` source env/bin/activate ````
+``` source env/bin/activate ```
 
 2. Clone the repository as follows
 
@@ -39,6 +39,12 @@ The expected output for this action is an the URL of the model is being served i
 5. Run test of the ML API endpoint
 
 ```pytest ```
+
+
+## Tutorial: How to use the package
+
+
+
 
 
 
