@@ -14,14 +14,10 @@ URL = "http://192.168.0.168:8080/predict"
 
 #in_data = {}
 
-in_data = {
- 'num_sessions': 2,
- 'city_encoded': 4,
- 'country_encoded': 1,
- 'device_class_encoded': 2,
- 'instant_booking_encoded': 0,
- 'user_verified_encoded': 1 
-}
+in_data = {'num_sessions': 2, 'city': 'Berlin', 'country': 'DE',
+            'device_class': 'desktop', 'instant_booking': 'Not_instant',
+            'user_verified': 'Verified'
+        }
 
 def test_request_prediction():
     result = request_prediction(data=in_data)
@@ -33,30 +29,29 @@ test_request_prediction()
 
 # %%
 
-predictions = predict_booking(num_sessions=2, city_encoded=4, country_encoded=1,
-                device_class_encoded=2, instant_booking_encoded=0, 
-                user_verified_encoded=1)
+predictions = predict_booking(device_class='desktop', city='Berlin', 
+                            country='DE', instant_booking='Not_instant', 
+                            user_verified='Verified', num_sessions=2
+                            )
 
 
 # %%
-def test_predict_booking_is_list(num_sessions=2, city_encoded=4, 
-                                 country_encoded=1,device_class_encoded=2, 
-                                 instant_booking_encoded=0, 
-                                user_verified_encoded=1
+def test_predict_booking_is_list(device_class='desktop', city='Berlin', 
+                                country='DE', instant_booking='Not_instant', 
+                                user_verified='Verified', num_sessions=2
                                 ):
-    result = predict_booking(num_sessions=num_sessions, city_encoded=city_encoded,
-                    country_encoded=country_encoded, device_class_encoded=device_class_encoded,
-                    instant_booking_encoded=instant_booking_encoded,
-                    user_verified_encoded=user_verified_encoded
-                    )
+    result = predict_booking(num_sessions=num_sessions, city=city,
+                            country=country, device_class=device_class,
+                            instant_booking=instant_booking,
+                            user_verified=user_verified
+                            )
     assert isinstance(result, list)
     
     
 def test_predict_booking_value_is_float():
-    result = predict_booking(num_sessions=2, city_encoded=4, 
-                            country_encoded=1,device_class_encoded=2, 
-                            instant_booking_encoded=0, 
-                            user_verified_encoded=1
+    result = predict_booking(device_class='desktop', city='Berlin', 
+                            country='DE', instant_booking='Not_instant', 
+                            user_verified='Verified', num_sessions=2
                             )
     value = result[0]
     assert isinstance(value, float)
