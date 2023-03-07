@@ -7,7 +7,7 @@ from .helpers import predict_booking, get_path
 
 warnings.filterwarnings('ignore')
 
-model_path = get_path(folder_name='booking_gauger/api', file_name='model.model')
+model_path = get_path(folder_name='booking_gauger/api/model_store', file_name='best_model.model')
 model = joblib.load(filename=model_path)
 
 #%%
@@ -18,26 +18,18 @@ class predictBookingDays(Resource):
     def post():
         user_input = request.get_json()
         num_sessions = user_input['num_sessions']
-        city = user_input['city_encoded']
-        country = user_input['country_encoded']
-        device = user_input['device_class_encoded']
-        instant_booking = user_input['instant_booking_encoded']
-        user_verified = user_input['user_verified_encoded']
-        
-        # data = X=[num_sessions, 
-        #           city, 
-        #           country,
-        #           device, 
-        #           instant_booking,
-        #           user_verified
-        #         ]
+        city = user_input['city']
+        country = user_input['country']
+        device = user_input['device_class']
+        instant_booking = user_input['instant_booking']
+        user_verified = user_input['user_verified']
         prediction = predict_booking(model=model, 
                                      num_sessions=num_sessions, 
-                                     city_encoded=city, 
-                                     country_encoded=country,
-                                     device_class_encoded=device, 
-                                     instant_booking_encoded=instant_booking,
-                                     user_verified_encoded=user_verified
+                                     city=city, 
+                                     country=country,
+                                     device_class=device, 
+                                     instant_booking=instant_booking,
+                                     user_verified=user_verified
                                      )
         prediction_json = {'predicted_value': prediction}
         return jsonify(prediction_json)
@@ -47,5 +39,7 @@ api.add_resource(predictBookingDays, '/predict')
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
         
+
+
         
 # %%
