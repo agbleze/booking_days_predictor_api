@@ -55,14 +55,11 @@ Making a prediction with request to ML endpoint is undertaken as follows:
 
 from booking_gauger.api.helpers import request_prediction
 
-in_data = {
- 'num_sessions': 2,
- 'city_encoded': 4,
- 'country_encoded': 1,
- 'device_class_encoded': 2,
- 'instant_booking_encoded': 0,
- 'user_verified_encoded': 1 
-}
+in_data = {'num_sessions': 2, 'city': 'Berlin', 
+            'country': 'DE', 'device_class': 'desktop', 
+            'instant_booking': 'Not_instant',
+            'user_verified': 'Verified'
+        }
 
 days_predicted = request_prediction(data=in_data)
 round(days_predicted)
@@ -86,9 +83,9 @@ In either jupyter notebook or python file, the steps for prediction are identifi
 from booking_gauger.api.helpers import predict_booking
 
 # Meaning of argments are found in the function documentation
-predictions = predict_booking(num_sessions=2, city_encoded=4, country_encoded=1,
-                                device_class_encoded=2, instant_booking_encoded=0, 
-                                user_verified_encoded=1
+predictions = predict_booking(device_class='desktop', city='Berlin', 
+                            country='DE', instant_booking='Not_instant', 
+                            user_verified='Verified', num_sessions=2
                             )
 
 predictions[0]
